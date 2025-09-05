@@ -1,0 +1,6 @@
+/* src/index.css */
+@import "tailwindcss";
+
+/* Optional: ensure class scanning sees your files */
+@source "./index.html";
+@source "./src/**/*.{js,ts,jsx,tsx}";
