@@ -1,69 +1,44 @@
-# React + TypeScript + Vite
+# 🌙 Midnight Scan – Transaction Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
 
-Currently, two official plugins are available:
+Submission for the **Midnight Network "Privacy First" Challenge** — *Enhance the Ecosystem* prompt.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 What I Built
+**Midnight Scan** is a lightweight, open-source web explorer for the **Midnight testnet**.  
+It helps developers quickly verify and debug their transactions by providing an easy-to-use **transaction search** and **recent activity feed**.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🔍 **Search by Tx ID** → fetch transaction details from the Midnight GraphQL indexer  
+- 📜 **Recent Transactions** toggle → shows the 15 most recent indexed transactions  
+- 🌐 **Zero-install preview** → live and deployed on Vercel  
+- 🛠 Built with **React + Vite + TypeScript + Tailwind CSS**
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+👉 **Live site**: [https://midnight-scan-transaction-viewer.vercel.app/](https://midnight-scan-transaction-viewer.vercel.app/)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🎥 Demo
+1. Request **tDUST** from the official faucet (easy way to generate a test transaction).  
+2. Copy the transaction ID from your wallet.  
+3. Paste it into **Midnight Scan** → press **Search**.  
+4. Or flip the **Recent** toggle to see the latest 15 transactions.  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔧 How I Used Midnight’s Technology
+Midnight Scan integrates with the **Midnight GraphQL Indexer**.  
+The app runs two core queries:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Recent Transactions**
+```graphql
+query RecentTransactions {
+  recentTransactions(limit: 15) {
+    id
+    timestamp
+    status
+    fee
+    blockHeight
+  }
+}
